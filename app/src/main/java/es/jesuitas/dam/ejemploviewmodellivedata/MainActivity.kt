@@ -3,6 +3,7 @@ package es.jesuitas.dam.ejemploviewmodellivedata
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
 import android.os.Bundle
+import androidx.lifecycle.Observer
 
 import es.jesuitas.dam.ejemploviewmodellivedata.databinding.ActivityMainBinding
 
@@ -21,16 +22,14 @@ class MainActivity : AppCompatActivity() {
         
         binding.likeButton.setOnClickListener{
             viewModel.increaseLikes()
-            updateLikeTextView()
-            updateProgressBar()
         }
-    }
 
-    private fun updateLikeTextView() {
-        binding.likes.text = viewModel.likeCount.toString()
-    }
+        val linkCount_Observer = Observer<Int> { newValue ->
+            binding.likes.text = newValue.toString()
+            binding.progressBar.progress = newValue
+        }
 
-    private fun updateProgressBar() {
-        binding.progressBar.progress = viewModel.likeCount
+        viewModel.likeCount.observe(this,linkCount_Observer)
+
     }
 }
