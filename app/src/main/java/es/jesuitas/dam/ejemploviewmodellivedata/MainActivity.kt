@@ -19,17 +19,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this  // use Fragment.viewLifecycleOwner for fragments
         
         binding.likeButton.setOnClickListener{
             viewModel.increaseLikes()
         }
-
-        val linkCount_Observer = Observer<Int> { newValue ->
-            binding.likes.text = newValue.toString()
-            binding.progressBar.progress = newValue
-        }
-
-        viewModel.likeCount.observe(this,linkCount_Observer)
-
     }
 }
