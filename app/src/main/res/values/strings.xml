@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Ejemplo ViewModel LiveData</string>
+    <string name="profile_avatar_cd">Profile\'s avatar</string>
+    <string name="like">Like</string>
+    <string name="name_label">Name</string>
+    <string name="last_name_label">Last name</string>
+    <string name="likes">Likes</string>
+    <string name="name">Ada</string>
+    <string name="last_name">Lovelace</string>
+    <string name="max_likes_reached">Número máximo de likes alcanzado</string>
+</resources>
