@@ -1,55 +1,37 @@
 package es.jesuitas.dam.ejemploviewmodellivedata
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
 import android.os.Bundle
-import android.widget.Toast
-import es.jesuitas.dam.ejemploviewmodellivedata.databinding.ActivityMainBinding
 
-const val LIKE_COUNT = "Likes Count"
+import es.jesuitas.dam.ejemploviewmodellivedata.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var likeCount = 0
+
+    private val viewModel: MyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Retrieving saved Likes Count
-        if (savedInstanceState != null) {
-            likeCount = savedInstanceState.getInt(LIKE_COUNT, 0)
-            updateLikeTextView()
-            updateProgressBar()
-        }
+        updateLikeTextView()
+        updateProgressBar()
         
-        binding.likeButton.setOnClickListener{increaseLikes()}
-    }
-
-    private fun increaseLikes() {
-        if (likeCount < 100) {
-            likeCount++
+        binding.likeButton.setOnClickListener{
+            viewModel.increaseLikes()
             updateLikeTextView()
             updateProgressBar()
-        } else {
-            Toast.makeText(this, getString(R.string.max_likes_reached),
-                Toast.LENGTH_LONG)
-                .show()
         }
     }
 
     private fun updateLikeTextView() {
-        binding.likes.text = likeCount.toString()
+        binding.likes.text = viewModel.likeCount.toString()
     }
 
     private fun updateProgressBar() {
-        binding.progressBar.progress = likeCount
-    }
-
-    // Saving likeCount value into Bundle object
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(LIKE_COUNT, likeCount)
+        binding.progressBar.progress = viewModel.likeCount
     }
 }
