@@ -17,8 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        updateLikeTextView()
-        updateProgressBar()
+        binding.viewModel = viewModel
         
         binding.likeButton.setOnClickListener{
             viewModel.increaseLikes()
